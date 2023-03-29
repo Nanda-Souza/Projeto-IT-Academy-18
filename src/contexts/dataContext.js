@@ -36,12 +36,22 @@ export const DataProvider = ({ children }) => {
                     [1142, 947, 2302, 1789, 2911, 2910, 3143, 3450, 634, 1986, 1224, 1236, 5267, 1171, 3804, 4366, 1137, 4900, 2579, 1163, 446, 2792, 0, 2171],
                     [1408, 3108, 524, 1238, 1892, 2119, 1300, 1597, 2397, 1428, 2001, 1684, 4476, 2178, 2001, 3575, 1891, 4109, 521, 1202, 2607, 882, 2171, 0]
                 ])
+    //Tabela de itens de transporte
+    const [loadWeight, setloadWeight] = useState([
+      {item: "celular", weight: 0.5},
+      {item: "geladeira", weight: 60},
+      {item: "freezer", weight: 100},
+      {item: "cadeira", weight: 5},
+      {item: "luminaria", weight: 0.8},
+      {item: "lavadora", weight: 120}
+    ]);
   
     return (
       <DataContext.Provider
         value={{
          cities,
-         distance
+         distance,
+         loadWeight
         }}
       >
         {children}

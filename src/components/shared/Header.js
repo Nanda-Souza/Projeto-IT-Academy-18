@@ -9,11 +9,16 @@ export default function Header(){
     
     }
 
+    function exit(){
+        navigate("/");
+    
+    }
+
     return (
         <HeaderGeneral >
             <img src="assets/voltar.png" onClick={homePage} />
             <img src="assets/itlogo.png" />
-            <img src="assets/exit.png" />
+            <img src="assets/exit.png" onClick={exit} />
 
         </HeaderGeneral>
     )

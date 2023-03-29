@@ -8,8 +8,14 @@ export default function ScreenLanding(){
   //Funções para navegar entre as paginas
   function consultPage(){
     navigate("/consult");
-
 }
+  function registerPage(){
+    navigate("/register");
+  }
+
+  function exit(){
+    navigate("/");
+  }
     
     return (
     
@@ -18,13 +24,13 @@ export default function ScreenLanding(){
         <button className="trecho" onClick={consultPage}>
         Consultar trechos x Modalidade
         </button>
-        <button className="cadastro">
+        <button className="cadastro" onClick={registerPage}>
         Cadastrar Transporte
         </button>
         <button className="dados">
         Dados Estatísticos
         </button>
-        <button className="sair">
+        <button className="sair" onClick={exit}>
         Sair
         </button>
         
