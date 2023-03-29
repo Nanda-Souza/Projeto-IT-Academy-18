@@ -1,13 +1,21 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ScreenLanding(){
+  const navigate = useNavigate();
+
+  //Funções para navegar entre as paginas
+  function consultPage(){
+    navigate("/consult");
+
+}
     
     return (
     
     
         <Buttons>
-        <button className="trecho">
+        <button className="trecho" onClick={consultPage}>
         Consultar trechos x Modalidade
         </button>
         <button className="cadastro">

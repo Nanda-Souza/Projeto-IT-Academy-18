@@ -1,19 +1,22 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ScreenLanding(){
-    
+        const navigate = useNavigate();
+
+        function login(){
+                navigate("/home");
+
+        }
     return (
     
     
-            <Entrar >
-               
-                    <p
-                        id="button" 
-                        className="button-log">Entrar</p>
-
-            
-            </Entrar>
+        <Entrar onClick={login}>
+                <p
+                id="button" 
+                className="button-log">Entrar</p>        
+        </Entrar>
     )
 }
 

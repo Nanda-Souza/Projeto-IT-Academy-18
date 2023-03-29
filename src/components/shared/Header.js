@@ -1,11 +1,17 @@
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom";
 
 export default function Header(){
+    const navigate = useNavigate();
 
+    function homePage(){
+        navigate("/home");
     
+    }
+
     return (
         <HeaderGeneral >
-            <img src="assets/voltar.png" />
+            <img src="assets/voltar.png" onClick={homePage} />
             <img src="assets/itlogo.png" />
             <img src="assets/exit.png" />
 
