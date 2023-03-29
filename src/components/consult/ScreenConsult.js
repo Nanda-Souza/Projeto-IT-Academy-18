@@ -8,7 +8,8 @@ export default function ScreenConsult(){
     //1.1 - objetos de estado do form
     const [form, setForm] = useState({
         cityOrigin: "",
-        cityDestination: ""        
+        cityDestination: "",
+        size: ""
       });
     
 
@@ -45,13 +46,15 @@ const distance = [
                     'GOIANIA', 'JOAO PESSOA', 'MACEIO', 'MANAUS', 'NATAL', 'PORTO ALEGRE', 'PORTO VELHO', 'RECIFE', 'RIO BRANCO', 
                     'RIO DE JANEIRO', 'SALVADOR', 'SAO LUIS', 'SAO PAULO', 'TERESINA', 'VITORIA']
     //1.2 - função para calular distancia com base no input do usuario
-    function calculateDistance(e){
+    //1.8 - mudança do nome calculateDistance para subitForm pois aqui é para validar os dados inseridos no front
+    function submitForm(e){
         // 1.5 confirma se os campos estão vazios
         if (
             !form.cityOrigin ||
-            !form.cityDestination
+            !form.cityDestination ||
+            !form.size
           ) {
-            alert("Favor preencher todos os campos!");
+            alert('Favor preencher e selecionar todos os campos!');
             return;
           }
         // 1.6 - conversão do input d form para upperCase e remoção de caracteres especiais (erro1)
@@ -80,10 +83,53 @@ const distance = [
             return;
         }
 
-          alert("Tudo certo")
-          return
+        calculateDistance(origin, destination, form.size)
+          
 
     }
+    //1.9 função para calcular a o trecho e fornecer a resposta ao usuario
+    function calculateDistance(origin, destination, size){
+        //1.10 função que valida qual elemento do array de cidades é igual a origem selecionada
+        const originIndex = (element) => element === origin
+        //1.11 função que valida qual elemento do array de cidades é igual ao destino selecionado
+        const destinationIndex = (element) => element === destination
+        
+        //1.12 Uso do metodo findIndex para definir o indice dos eixos da matriz de distancia 
+        const yAxis = cities.findIndex(originIndex)
+        const xAxis = cities.findIndex(destinationIndex)        
+        
+        //1.13 variavel para armazenar o valor extraido da matrix de distancia
+        const result = distance[yAxis][xAxis]
+
+        //1.14 com base no tamanho do caminhão (P,M,G) fornece a resposta contento a origem, destino, distancia e preço.
+        if ( 
+            size ==="P"
+        ){
+            const cost = 4.87 * result
+
+            alert(`de ${origin} para ${destination}, utilizando um caminhão de pequeno porte, a distancia é de ${result} km e o custo será de R$ ${cost.toFixed(2)}.`)
+            return
+        }
+        if ( 
+            size ==="M"
+        ){
+            const cost = 11.92 * result
+
+            alert(`de ${origin} para ${destination}, utilizando um caminhão de médio porte, a distancia é de ${result} km e o custo será de R$ ${cost.toFixed(2)}.`)
+            return
+        }
+        if ( 
+            size ==="G"
+        ){
+            const cost = 27.44 * result
+
+            alert(`de ${origin} para ${destination}, utilizando um caminhão de grande porte, a distancia é de ${result} km e o custo será de R$ ${cost.toFixed(2)}.`)
+            return
+        }
+
+    }
+
+    
 
     //1.4 - atualiza o estado dos campos do form
     function updateForm(e) {
@@ -93,7 +139,7 @@ const distance = [
     return (
        //1-criacao do form para receber os dados pro calculo de distancia
        //1.3 - em caso de adicionar algo nos campos o estado do form é atualizadp
-       <form onSubmit={calculateDistance}>
+       <form onSubmit={submitForm}>
             <ConsultGeneral >
                 <p>Consultar trecho</p>
                 <InputGeneral>
@@ -122,15 +168,33 @@ const distance = [
             <ModalGeneral >
                 <p>Escolha a modalidade</p>
                 <InputGeneral>
-                    <InputList>
-                        <input
-                            type=""
-                            placeholder="Transporte"                           
-                            />
+                    <InputList>                        
+                            <input 
+                                type="radio" 
+                                value="P" 
+                                name="size" 
+                                onChange={updateForm}
+                                required
+                                /> Caminhão de pequeno porte
+                                
+                            <input 
+                                type="radio" 
+                                value="M" 
+                                name="size" 
+                                onChange={updateForm}
+                                required
+                                /> Caminhão de médio porte
+                            <input 
+                                type="radio" 
+                                value="G" 
+                                name="size" 
+                                onChange={updateForm}
+                                required
+                                /> Caminhão de grande porte
                     </InputList>
                 </InputGeneral>
             </ModalGeneral>
-            <Buttons onClick={calculateDistance}>
+            <Buttons onClick={submitForm}>
                 <button className="calculate">
                     Calcular
                 </button>
